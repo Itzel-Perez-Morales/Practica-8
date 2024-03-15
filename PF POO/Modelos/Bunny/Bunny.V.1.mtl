@@ -1,0 +1,12 @@
+# Blender 4.0.2 MTL File: 'untitled.blend'
+# www.blender.org
+
+newmtl Material.001
+Ns 200.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd C:/Users/itzel/OneDrive/Documents/4SEMESTRE/POO/chicken-dance-usavich-rabbit/textures/texture_2.png
+map_d C:/Users/itzel/OneDrive/Documents/4SEMESTRE/POO/chicken-dance-usavich-rabbit/textures/texture_2.png
