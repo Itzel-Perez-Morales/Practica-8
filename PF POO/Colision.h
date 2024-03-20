@@ -1,4 +1,5 @@
 #pragma once
+//#include "Scene.h" //cambiar a model 
 
 class Colision
 {

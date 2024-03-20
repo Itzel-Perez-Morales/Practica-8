@@ -5,7 +5,11 @@ Model::Model()
 {
 }
 
-Model::Model(bool colisionStatus, double cX, double cY, double cZ, double cRX, double cRY, double cRZ, string modelPath, string texturePath, bool mode) : textureId(0) {
+Model::Model(bool colisionStatus, double cX, double cY, double cZ, double cRX, double cRY, double cRZ, short i, short aSpeed, float pos, float pS, float pE, float rot, float actSize, float sizeL, float sizeM, bool sS, bool stUp, bool stDown, bool stBack, bool stFront, string modelPath, string texturePath, bool mode)
+	:Colision(colisionStatus, cX, cY, cZ, cRX, cRY, cRZ),
+	Animations(i, aSpeed, pos, pS, pE, rot, actSize, sizeL, sizeM, sS, stUp, stDown, stBack, stFront),
+	textureId(0)
+{
 	if (mode == 0)
 		drawMode = GLM_FLAT | GLM_MATERIAL;
 	else if (mode == 1)
@@ -15,7 +19,7 @@ Model::Model(bool colisionStatus, double cX, double cY, double cZ, double cRX, d
 	glmFacetNormals(model);
 	glmVertexNormals(model, 90.0);
 	//Load Texture
-	BMPError e = BMPLoad(texturePath, texture);;
+	BMPError e = BMPLoad(texturePath, texture);
 	if (e == BMPNOERROR) {
 		drawMode |= GLM_TEXTURE;
 		glGenTextures(1, &textureId);
@@ -26,6 +30,7 @@ Model::Model(bool colisionStatus, double cX, double cY, double cZ, double cRX, d
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 		glTexImage2D(GL_TEXTURE_2D, 0, 3, texture.width, texture.height, 0, GL_RGB, GL_UNSIGNED_BYTE, texture.bytes);
 	}
+	//declarar puntos de colision aqui
 }
 
 void Model::Draw()

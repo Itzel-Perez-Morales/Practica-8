@@ -80,18 +80,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animations.cpp" />
     <ClCompile Include="BMPLoader.cpp" />
     <ClCompile Include="glm.cpp" />
+    <ClCompile Include="Items.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Colision.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animations.h" />
     <ClInclude Include="Billboard.h" />
     <ClInclude Include="BMPLoader.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Colision.h" />
     <ClInclude Include="EDXFramework.h" />
+    <ClInclude Include="Items.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="GamePadRR.h" />
     <ClInclude Include="glew.h" />

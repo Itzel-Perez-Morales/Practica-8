@@ -26,7 +26,8 @@ public:
 
 	void cameraInitialize()
 	{
-		positionX = -0.03, positionY = 23, positionZ = -162, directionX = 0, directionY = 23, directionZ = -25;
+		//positionX = -0.03, positionY = 23, positionZ = -162, directionX = 0, directionY = 23, directionZ = -25;
+		positionX = -164, positionY = 23, positionZ = 20, directionX = 0, directionY = 23, directionZ = -25;
 		ux = 0, uy = 1, uz = 0;
 		gluLookAt(positionX, positionY, positionZ, directionX, directionY, directionZ, ux, uy, uz);
 		viewVectorMag = sqrt(pow(directionX - positionX, 2) + pow(directionZ - positionZ, 2));
