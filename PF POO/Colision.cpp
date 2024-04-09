@@ -2,97 +2,94 @@
 
 Colision::Colision() {};
 
-Colision::Colision(bool colisionStatus, double cX, double cY, double cZ, double cRX, double cRY, double cRZ)
+Colision::Colision(double colisionPointX, double colisionPointY, double colisionPointZ, double colisionRadioX, double colisionRadioY, double colisionRadioZ)
 {
-	colliding = colisionStatus;
-	colisionX = cX;
-	colisionY = cY;
-	colisionZ = cZ;
-	colCenterX = cRX;
-	colCenterY = cRY;
-	colCenterZ = cRZ;
+	coordsColision.x = colisionPointX;
+	coordsColision.y = colisionPointY;
+	coordsColision.z = colisionPointZ;
+	coordsColRadio.x = colisionRadioX;
+	coordsColRadio.y = colisionRadioY;
+	coordsColRadio.z = colisionRadioZ;
 }
 
-bool Colision::Hitbox(double objCoordX, double objCoordY, double objCoordZ)
+bool Colision::Hitbox(CoordsXYZ objCoords)
 {
-	if (objCoordX >= colisionX && objCoordX <= colCenterX + colisionX)
+	if (objCoords.x >= coordsColision.x - coordsColRadio.x && objCoords.x <= coordsColRadio.x + coordsColision.x)
+		//objCoordX >= colisionX - colCenterX && objCoordX <= colCenterX + colisionX)
 	{
-		if (objCoordZ <= colisionZ + colCenterZ && objCoordZ >= colisionZ)
+		if (objCoords.z <= coordsColision.z + coordsColRadio.z && objCoords.z >= coordsColision.z - coordsColRadio.z)
+			//objCoordZ <= colisionZ + colCenterZ && objCoordZ >= colisionZ - colCenterZ)
 		{
-			//scene->positionX = scene->antPosX;
-			//scene->positionZ = scene->antPosZ;
 			return true;
 		}
+		return false;
+	}
+	else
+	{
+		return false;
 	}
 }
 
+bool Colision::HitboxPtP(CoordsXYZ objCoords)
+{
+	if (objCoords.x <= coordsColision.x + coordsColRadio.x && objCoords.x >= coordsColision.x)
+		//objCoordX <= colisionX + colCenterX && objCoordX >= colisionX)
+	{
+		if (objCoords.z <= coordsColision.z + coordsColRadio.z && objCoords.z >= coordsColision.z)
+			//objCoordZ <= colisionZ + colCenterZ && objCoordZ >= colisionZ)
+		{
+			return true;
+		}
+		return false;
+	}
+	else
+	{
+		return false;
+	}
+};
+
+
 // Getters / Setters
-double Colision::getColisionX()
+double Colision::getCoordsColisionX()
 {
-	return colisionX;
+	return coordsColision.x;
 }
 
-double Colision::getColisionY()
+double Colision::getCoordsColRadioX()
 {
-	return colisionY;
+	return coordsColRadio.x;
 }
 
-double Colision::getColisionZ()
+double Colision::getCoordsColisionY()
 {
-	return colisionZ;
+	return coordsColision.y;
 }
 
-double Colision::getColCenterX()
+double Colision::getCoordsColRadioY()
 {
-	return colCenterX;
+	return coordsColRadio.y;
 }
 
-double Colision::getColCenterY()
+double Colision::getCoordsColisionZ()
 {
-	return colCenterY;
+	return coordsColision.z;
 }
 
-double Colision::getColCenterZ()
+double Colision::getCoordsColRadioZ()
 {
-	return colCenterZ;
+	return coordsColRadio.z;
 }
 
-bool Colision::getColliding()
+void Colision::setCoordsColision(double x, double y, double z)
 {
-	return colliding;
+	coordsColision.x = x;
+	coordsColision.y = y;
+	coordsColision.z = z;
 }
 
-void Colision::setColisionX(double cX)
+void Colision::setCoordsColRadio(double x, double y, double z)
 {
-	colisionX = cX;
-}
-
-void Colision::setColisionY(double cY)
-{
-	colisionY = cY;
-}
-
-void Colision::setColisionZ(double cZ)
-{
-	colisionZ = cZ;
-}
-
-void Colision::setColCenterX(double cRX)
-{
-	colCenterX = cRX;
-}
-
-void Colision::setColCenterY(double cRY)
-{
-	colCenterY = cRY;
-}
-
-void Colision::setColCenterZ(double cRZ)
-{
-	colCenterZ = cRZ;
-}
-
-void Colision::setColliding(bool col)
-{
-	colliding = col;
+	coordsColRadio.x = x;
+	coordsColRadio.y = y;
+	coordsColRadio.z = z;
 }

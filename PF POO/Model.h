@@ -1,23 +1,26 @@
 #pragma once
+//#include <iterator>
+//#include <algorithm>
+//#include<vector>
 #include <string>
 #include "glm.h"
 #include "BMPLoader.h"
-#include "Colision.h"
-#include "Animations.h"
 using namespace std;
 
 namespace EDXFramework
 {
-	class Model : virtual public Colision, virtual public Animations
+	class Model
 	{
-		GLMmodel* model;
-		BMPClass texture;
-		unsigned int textureId;
-		unsigned int drawMode;
+		GLMmodel* mModel;
+		BMPClass mTexture;
+		unsigned int mTextureId;
+		unsigned int mDrawMode;
 	public:
 		Model();
-		Model(bool colisionStatus, double cX, double cY, double cZ, double cRX, double cRY, double cRZ, short i, short aSpeed, float pos, float pS, float pE, float rot, float actSize, float sizeL, float sizeM, bool sS, bool stUp, bool stDown, bool stBack, bool stFront, string modelPath, string texturePath, bool mode);
-		void Draw();
+		Model(string pModelPath, string pTexturePath, bool pMode);
 		virtual ~Model();
+		void Draw();
 	};
 }
+//std::vector<string> texturePath;
+//std::vector<GLuint> textureID;

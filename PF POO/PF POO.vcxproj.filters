@@ -16,6 +16,18 @@
     <Filter Include="Header Files\Modelos">
       <UniqueIdentifier>{554fd37f-dd35-4c5f-9897-d6fbe86245ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Modelos\Lógica">
+      <UniqueIdentifier>{df8c0278-4d2c-4c12-a49a-6f2312546788}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entorno">
+      <UniqueIdentifier>{d3be877c-f88f-46bd-ae89-146b607b614f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Modelos">
+      <UniqueIdentifier>{6ea37d37-0078-4362-bcb9-f21392c66a9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Modelos\Lógica">
+      <UniqueIdentifier>{63f0a082-405d-40f7-89f3-3454f1400a96}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BMPLoader.cpp">
@@ -27,24 +39,48 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Duck.cpp">
+      <Filter>Source Files\Modelos</Filter>
+    </ClCompile>
     <ClCompile Include="Model.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Modelos</Filter>
     </ClCompile>
-    <ClCompile Include="Colision.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Animations.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Barn.cpp">
+      <Filter>Source Files\Modelos</Filter>
     </ClCompile>
     <ClCompile Include="Items.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Modelos</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\Modelos</Filter>
+    </ClCompile>
+    <ClCompile Include="Animations.cpp">
+      <Filter>Source Files\Modelos\Lógica</Filter>
+    </ClCompile>
+    <ClCompile Include="Colision.cpp">
+      <Filter>Source Files\Modelos\Lógica</Filter>
+    </ClCompile>
+    <ClCompile Include="Frames.cpp">
+      <Filter>Source Files\Modelos\Lógica</Filter>
+    </ClCompile>
+    <ClCompile Include="Bunny.cpp">
+      <Filter>Source Files\Modelos</Filter>
+    </ClCompile>
+    <ClCompile Include="VeggiesCamp.cpp">
+      <Filter>Source Files\Modelos</Filter>
+    </ClCompile>
+    <ClCompile Include="Railing.cpp">
+      <Filter>Source Files\Modelos</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelWColision.cpp">
+      <Filter>Source Files\Modelos\Lógica</Filter>
+    </ClCompile>
+    <ClCompile Include="Veggies.cpp">
+      <Filter>Source Files\Modelos</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BMPLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EDXFramework.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Geometrias.h">
@@ -59,25 +95,10 @@
     <ClInclude Include="VectorRR.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SkyDome.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Water.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Billboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Terrain.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Fog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GamePadRR.h">
@@ -89,20 +110,68 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Colision.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Items.h">
+      <Filter>Header Files\Modelos</Filter>
     </ClInclude>
-    <ClInclude Include="Animations.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Duck.h">
+      <Filter>Header Files\Modelos</Filter>
+    </ClInclude>
+    <ClInclude Include="Barn.h">
+      <Filter>Header Files\Modelos</Filter>
     </ClInclude>
     <ClInclude Include="Model.h">
+      <Filter>Header Files\Modelos\Lógica</Filter>
+    </ClInclude>
+    <ClInclude Include="Animations.h">
+      <Filter>Header Files\Modelos\Lógica</Filter>
+    </ClInclude>
+    <ClInclude Include="Colision.h">
+      <Filter>Header Files\Modelos\Lógica</Filter>
+    </ClInclude>
+    <ClInclude Include="EDXFramework.h">
+      <Filter>Header Files\Modelos\Lógica</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyDome.h">
+      <Filter>Header Files\Entorno</Filter>
+    </ClInclude>
+    <ClInclude Include="Fog.h">
+      <Filter>Header Files\Entorno</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files\Entorno</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>Header Files\Entorno</Filter>
+    </ClInclude>
+    <ClInclude Include="Water.h">
+      <Filter>Header Files\Entorno</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\Modelos</Filter>
+    </ClInclude>
+    <ClInclude Include="Frames.h">
       <Filter>Header Files\Modelos</Filter>
     </ClInclude>
     <ClInclude Include="Imagenes.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Entorno</Filter>
     </ClInclude>
-    <ClInclude Include="Items.h">
+    <ClInclude Include="Bunny.h">
       <Filter>Header Files\Modelos</Filter>
+    </ClInclude>
+    <ClInclude Include="VeggiesCamp.h">
+      <Filter>Header Files\Modelos</Filter>
+    </ClInclude>
+    <ClInclude Include="Railing.h">
+      <Filter>Header Files\Modelos</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelWColision.h">
+      <Filter>Header Files\Modelos\Lógica</Filter>
+    </ClInclude>
+    <ClInclude Include="Veggies.h">
+      <Filter>Header Files\Modelos</Filter>
+    </ClInclude>
+    <ClInclude Include="CoordsXYZ.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

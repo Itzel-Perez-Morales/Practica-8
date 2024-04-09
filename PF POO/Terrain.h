@@ -122,7 +122,7 @@ public:
 		//gpuDemo->desuse();
 	}
 
-	float Superficie(float x, float z)
+	float Superficie(float x, float z) //para procedimiento de comparación- > colision en y
 	{
 		//obtenemos el indice pero podria incluir una fraccion
         float indicefx = (x + anchof / 2) / deltax;

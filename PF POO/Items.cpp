@@ -2,22 +2,48 @@
 
 Items::Items() {};
 
-Items::Items(string modelPath, string texturePath, bool mode, bool colisionStatus, double cX, double cY, double cZ, double cRX, double cRY, double cRZ, short i, short aSpeed, float pos, float pS, float pE, float rot, float actSize, float sizeL, float sizeM, bool sS, bool stUp, bool stDown, bool stBack, bool stFront, bool initTaken) :
-	Model(colisionStatus, cX, cY, cZ, cRX, cRY, cRZ, i, aSpeed, pos, pS, pE, rot, actSize, sizeL, sizeM, sS, stUp, stDown, stBack, stFront, modelPath, texturePath, mode),
-	Colision(colisionStatus, cX, cY, cZ, cRX, cRY, cRZ),
-	Animations(i, aSpeed, pos, pS, pE, rot, actSize, sizeL, sizeM, sS, stUp, stDown, stBack, stFront)
+Items::Items(string modelPath, string texturePath, bool mode, double colisionPointX, double colisionPointY, double colisionPointZ, double colisionRadioX, double colisionRadioY,
+	double colisionRadioZ, short index, short currentSpeed, float positionTraslate, float positionStart, float positionEnd, float rotation, float actualSize,
+	float sizeLimit, float sizeMini, bool statusSmall, bool statusUp, bool statusDown, bool statusBack, bool statusFront, bool initTaken, bool initAble) :
+	Model(modelPath, texturePath, mode),
+	Colision(colisionPointX, colisionPointY, colisionPointZ, colisionRadioX, colisionRadioY, colisionRadioZ),
+	Animations(index, currentSpeed, positionTraslate, positionStart, positionEnd, rotation, actualSize, sizeLimit, sizeMini, statusSmall, statusUp, statusDown, statusBack, statusFront)
 {
-	taken = initTaken;
+	mAble = initAble;
+	mTaken = initTaken;
 }
 
-void Items::MoveObject(float spinI, float spinLimit, float sizeI, double positionX, double positionY, double positionZ)
+void Items::MoveObject(float pSpinI, float pSpinLimit, float pSizeI)
 {
-	Spin(spinI, spinLimit);
-	Resizing(sizeI);
-	glPushMatrix();
-	glTranslatef(positionX, positionY, positionZ);
-	glRotatef(getRotation(), 1, 1, 1);
-	glScalef(getSize(), getSize(), getSize());
-	Draw();
-	glPopMatrix();
+	if (mTaken == false)
+	{
+		Spin(pSpinI, pSpinLimit);
+		Resizing(pSizeI);
+		glPushMatrix();
+		glTranslatef(getCoordsColisionX(), getCoordsColisionY(), getCoordsColisionZ());
+		glRotatef(getRotation(), 1, 1, 1);
+		glScalef(getSize(), getSize(), getSize());
+		Draw();
+		glPopMatrix();
+	}
 }
+
+bool Items::CheckHitbox(CoordsXYZ objCoords)
+{
+	if (Hitbox(objCoords) == true)
+		return true;
+	else
+		return false;
+}
+
+bool Items::getAble()
+{ return mAble; }
+
+void Items::setAble(bool actAble)
+{ mAble = actAble; }
+
+bool Items::getTaken()
+{ return mTaken; }
+
+void Items::setTaken(bool actStatus)
+{ mTaken = actStatus; }

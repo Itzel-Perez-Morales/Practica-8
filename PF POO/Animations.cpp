@@ -2,22 +2,22 @@
 
 Animations::Animations() {};
 
-Animations::Animations(short i, short aSpeed, float pos, float pS, float pE, float rot, float actSize, float sizeL, float sizeM, bool sS, bool stUp, bool stDown, bool stBack, bool stFront)
+Animations::Animations(short index, short currentSpeed, float positionTraslate, float positionStart, float positionEnd, float rotation, float actualSize, float sizeLimit, float sizeMini, bool statusSmall, bool statusUp, bool statusDown, bool statusBack, bool statusFront)
 {
-	index = i; 
-	speed = aSpeed;
-	position = pos;
-	positionStart = pS;
-	positionEnd = pE;
-	rotation = rot;
-	size = actSize;
-	sizeLimit = sizeL;
-	sizeMini = sizeM;
-	sizeSmall = sS;
-	up = stUp;
-	down = stDown;
-	back = stBack;
-	front = stFront;
+	Animations::index = index;
+	speed = currentSpeed;
+	position = positionTraslate;
+	Animations::positionStart = positionStart;
+	Animations::positionEnd = positionEnd;
+	Animations::rotation = rotation;
+	size = actualSize;
+	Animations::sizeLimit = sizeLimit;
+	Animations::sizeMini = sizeMini;
+	sizeSmall = statusSmall;
+	up = statusUp;
+	down = statusDown;
+	back = statusBack;
+	front = statusFront;
 }
 
 void Animations::Spin(float increment, float limit)
@@ -32,12 +32,12 @@ void Animations::Spin(float increment, float limit)
 	}
 }
 
-void Animations::MoveUpNDown(float increment)
+void Animations::MoveUpNDown(float increment) 
 {
-	if (position < up && position >= down && up == false)
+	if (position <= positionEnd && position >= positionStart && up == false)
 	{
 		position += increment;
-		if (position >= positionStart)
+		if (position >= positionEnd)
 		{
 			up = true;
 			down = false;
@@ -45,7 +45,7 @@ void Animations::MoveUpNDown(float increment)
 	}
 	else
 	{
-		if (position <= positionEnd)
+		if (position <= positionStart)
 		{
 			up = false;
 			down = true;
@@ -55,7 +55,7 @@ void Animations::MoveUpNDown(float increment)
 			position -= increment;
 		}
 	}
-}
+} 
 
 void Animations::Resizing(float increment)
 {
@@ -75,16 +75,14 @@ void Animations::Resizing(float increment)
 			sizeSmall = true;
 		}
 	}
-
-
 }
 
 void Animations::RotateFrontTBack(float increment, float limit)
 {
 	if (front == false)
 	{
-		rotation += 5;
-		if (rotation >= 45)
+		rotation += increment;
+		if (rotation >= limit)
 		{
 			back = false;
 			front = true;
@@ -92,8 +90,8 @@ void Animations::RotateFrontTBack(float increment, float limit)
 	}
 	else
 	{
-		rotation -= 5;
-		if (rotation <= -45)
+		rotation -= increment;
+		if (rotation <= -1 * limit)
 		{
 			front = false;
 			back = true;
@@ -101,18 +99,37 @@ void Animations::RotateFrontTBack(float increment, float limit)
 	}
 }
 
-template<typename modelType>
-void Animations::FPF(short i)
+void Animations::GoAcross(double &posiStart, double posiEnd, double &angleStart, double angleEnd, bool& _status)
 {
-	if (i <= index)
+	if (posiStart >= posiEnd)
+		posiStart -= 1;
+
+	else
 	{
-		modelType[i] ->Draw();
-		i += 1;
+		if (angleStart > angleEnd)
+			angleStart -= 1;
+		else
+			_status = true;
+	}
+}
+
+void Animations::AddFrames(Frames* frame)
+{
+	animFrames.push_back(frame);
+}
+
+
+void Animations::FPF(vector<Frames*>& _model, short limit)
+{
+	if (index < limit)
+	{
+		_model[index]->Draw(); // Usar index en lugar de i
+		index += 1;
 	}
 	else
 	{
-		i = 0;
-		modelType[i]->Draw();
+		index = 0;
+		_model[index]->Draw(); // Usar index en lugar de i
 	}
 }
 
@@ -146,6 +163,9 @@ float Animations::getRotation()
 float Animations::getSize()
 { return size; }
 
+vector<Frames*> Animations::getFrames()
+{ return animFrames; }
+
 float Animations::getSizeLimit()
 { return sizeLimit; }
 
@@ -160,6 +180,12 @@ bool Animations::getUp()
 
 bool Animations::getDown()
 { return down; }
+
+short Animations::getFPFLimit()
+{ return limit; }
+
+short Animations::getTime()
+{ return time; }
 
 void Animations::setIndex(short i)
 { index = i; }
@@ -196,3 +222,20 @@ void Animations::setUp(bool stUp)
 
 void Animations::setDown(bool stDown)
 { down = stDown; }
+
+void Animations::setFPFLimit(short fpf)
+{ limit = fpf; }
+
+
+void Animations::setTime(short _time)
+{ time = _time; }
+
+
+void Animations::DeleteAnimation()
+{
+	for (int i = 0; i < limit; i++)
+	{ delete animFrames[i]; }
+}
+
+Animations::~Animations()
+{ animFrames.clear(); }

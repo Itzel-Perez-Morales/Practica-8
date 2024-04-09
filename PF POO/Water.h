@@ -8,36 +8,36 @@ class Water : public Primitivos, public Imagenes
 {
 
 private:
-	float anchof;
-	float proff;
-	float deltax, deltaz;
+	float mWide;
+	float mDeep;
+	float mDeltaX, mDeltaZ;
 	//ShaderDemo *gpuDemo;
 
 public:
 
-	Maya wata;
-	int verx, verz;
+	Maya mWater;
+	int mVerX, mVerZ;
 	//el nombre numerico de la textura en cuestion, por lo pronto una
-	unsigned int planoTextura;
+	unsigned int mTextureMap;
 
-	Water(HWND hWnd, WCHAR alturas[], WCHAR textura[], float ancho, float prof)
+	Water(HWND hWnd, WCHAR pHeightMap[], WCHAR pTexture[], float pWide, float pDeep)
 	{
-		anchof = ancho;
-		proff = prof;
+		mWide = pWide;
+		mDeep = pDeep;
 		//cargamos la textura de la figura
-		Carga(alturas);
+		Carga(pHeightMap);
 		//en caso del puntero de la imagen sea nulo se brica esta opcion
-		wata = Plano(Ancho(), Alto(), ancho, prof, Dir_Imagen(), 30);
-		deltax = anchof / Ancho();
-		deltaz = proff / Alto();
-		verx = Ancho();
-		verz = Alto();
+		mWater = Plano(Ancho(), Alto(), pWide, pDeep, Dir_Imagen(), 30);
+		mDeltaX= mWide / Ancho();
+		mDeltaZ = mDeep / Alto();
+		mVerX = Ancho();
+		mVerZ = Alto();
 		//disponemos la textura del gdi.
 		Descarga();
 
-		Carga(textura);
-		glGenTextures(1, &planoTextura);
-		glBindTexture(GL_TEXTURE_2D, planoTextura);
+		Carga(pTexture);
+		glGenTextures(1, &mTextureMap);
+		glBindTexture(GL_TEXTURE_2D, mTextureMap);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_LINEAR);
@@ -52,49 +52,53 @@ public:
 	~Water()
 	{
 		//nos aseguramos de disponer de los recursos previamente reservados
-		delete wata.maya;
-		delete wata.indices;
-		glDeleteTextures(1, &planoTextura);
+		delete mWater.maya;
+		delete mWater.indices;
+		glDeleteTextures(1, &mTextureMap);
 	}
+
 
 	void Draw()
 	{
-		static float MovS = 0;
-		MovS += .01;
-		float A = sin(MovS) * 2;
+		static float moveWater = 0; //cuanto se moverá el agua?
+		float posYMin = 32;
+		moveWater += 0.15; //entre más alto el valor, más rápido se moverá
+		float waterAnimationY = posYMin + sin(moveWater); //posicion y del agua
 		//glPushAttrib(GL_CURRENT_BIT | GL_TEXTURE_BIT);
-		//glEnable(GL_DEPTH_TEST);
+		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);
-		static float water_factor_min = 20.0f;
+		static float water_factor_min = 20.0f; 
 		static float water_factor_max = 30.0f;
 		static float water_size = 200;
-		water_factor_min += .005f;
-		water_factor_max += .005f;
+		water_factor_min += .003f;
+		water_factor_max += .003f;
 		if (water_factor_min > 60)
 		{
 			water_factor_min = 20.0f;
 			water_factor_max = 30.0f;
 		}
-		glBindTexture(GL_TEXTURE_2D, planoTextura);
+		glBindTexture(GL_TEXTURE_2D, mTextureMap);
 		glBegin(GL_QUADS);
 		glTexCoord2f(water_factor_min, water_factor_min);
-		glColor4f(0.1f, 0.3f, 0.6f, 0.2f);
-		glVertex3f(-water_size, A, water_size);
+		glColor4f(0.1f, 0.3f, 0.6f, 0.1f);
+		glVertex3f(-water_size, waterAnimationY, water_size);
 
 		glTexCoord2f(water_factor_max, water_factor_min);
-		glColor4f(0.1f, 0.3f, 0.6f, 0.2f);
-		glVertex3f(water_size, A, water_size);
+		glColor4f(0.1f, 0.3f, 0.6f, 0.1f);
+		glVertex3f(water_size, waterAnimationY, water_size);
 
 		glTexCoord2f(water_factor_max, water_factor_max);
-		glColor4f(0.1f, 0.3f, 0.6f, 0.2f);
-		glVertex3f(water_size, A, -water_size);
+		glColor4f(0.1f, 0.3f, 0.6f, 0.1f);
+		glVertex3f(water_size, waterAnimationY, -water_size);
 
 		glTexCoord2f(water_factor_min, water_factor_max);
-		glColor4f(0.1f, 0.3f, 0.6f, 0.2f);
-		glVertex3f(-water_size, A, -water_size);
+		glColor4f(0.1f, 0.3f, 0.6f, 0.1f);
+		glVertex3f(-water_size, waterAnimationY, -water_size);
 		glEnd();
 		glPopAttrib();
 		//glDisable(GL_DEPTH_TEST);
+		//-------------
+
 	}
 };
 

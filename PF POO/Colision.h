@@ -1,29 +1,28 @@
 #pragma once
 //#include "Scene.h" //cambiar a model 
+#include "CoordsXYZ.h"
 
 class Colision
 {
-	double colisionX, colisionY, colisionZ, colCenterX, colCenterY, colCenterZ;
-	bool colliding;
+	CoordsXYZ coordsColision;
+	CoordsXYZ coordsColRadio;
+
+//	double colisionX, colisionY, colisionZ, colCenterX, colCenterY, colCenterZ;
 
 public:
 	Colision();
-	Colision(bool colisionStatus, double cX, double cY, double cZ, double cRX, double cRY, double cRZ);
-	bool Hitbox(double objCoordX, double objCoordY, double objCoordZ);
+	Colision(double colisionPointX, double colisionPointY, double colisionPointZ, double colisionRadioX, double colisionRadioY, double colisionRadioZ);
+	//Para hacer una colision dinamica se tendria que mandar la posicion actual de la instancia en x,y,z
+	bool Hitbox(CoordsXYZ objCoords);
+	bool HitboxPtP(CoordsXYZ objCoords);
 
 	// Setters / Getters
-	double getColisionX();
-	double getColisionY();
-	double getColisionZ();
-	double getColCenterX();
-	double getColCenterY();
-	double getColCenterZ();
-	bool getColliding();
-	void setColisionX(double cX);
-	void setColisionY(double cY);
-	void setColisionZ(double cZ);
-	void setColCenterX(double cRX);
-	void setColCenterY(double cRY);
-	void setColCenterZ(double cRZ);
-	void setColliding(bool col);
+	double getCoordsColisionX();
+	double getCoordsColisionY();
+	double getCoordsColisionZ();
+	double getCoordsColRadioX();
+	double getCoordsColRadioY();
+	double getCoordsColRadioZ();
+	void setCoordsColision(double x, double y, double z);
+	void setCoordsColRadio(double x, double y, double z);
 };

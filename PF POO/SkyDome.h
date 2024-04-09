@@ -2,15 +2,16 @@
 #define _Sky
 #include "Geometrias.h"
 #include "Imagenes.h"
+#include "Animations.h"
 
-class SkyDome:public Primitivos, public Imagenes
+class SkyDome:public Primitivos, public Imagenes, public Animations
 {
 public:
 	Maya cuadro;
 	int st, sl;
 	unsigned int esferaTextura;	
 
-	SkyDome(HWND hWnd, int stacks, int slices, float radio, WCHAR nombre[])
+	SkyDome(HWND hWnd, int stacks, int slices, float radio, WCHAR nombre[], short i, short aSpeed, float pos, float pS, float pE, float rot, float actSize, float sizeL, float sizeM, bool sS, bool stUp, bool stDown, bool stBack, bool stFront)
 	{
 		this->hWnd=hWnd;
 		cuadro=Esfera(stacks, slices, radio, 0.5, 1);
@@ -39,6 +40,16 @@ public:
 		delete cuadro.maya;
 		delete cuadro.indices;
 		glDeleteTextures(1, &esferaTextura);
+	}
+
+	void Move()
+	{
+		Spin(0.1f, 360);
+		glPushMatrix();
+		glTranslatef(0, 8, 0);
+		glRotatef(getRotation(), 0, 1, 0);
+		Draw();
+		glPopMatrix();
 	}
 
 	void Draw()

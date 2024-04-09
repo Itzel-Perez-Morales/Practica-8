@@ -7,93 +7,177 @@
 
 
 #include "VectorRR.h"
+#include "Animations.h"
 #include <math.h>
+#include "Player.h"
 
-class Camera : public VectorRR
+// Analizar la posibilidad de utilizar solo una camara
+	// Tener los datos de variantes de la camara
+		// Arreglos de posiciones, direcciones...
+class Camera : public VectorRR, public Animations
 {
 public:
-	VectorRR posc, dirc;
-	double positionX, positionY, positionZ, directionX, directionY, directionZ, ux, uy, uz, antPosX, antPosY, antPosZ;
+	VectorRR mPos, mDirec;
+	CoordsXYZ* mCameraPoints[2];
+	CoordsXYZ mCoords;
+	CoordsXYZ mDirection;
+	CoordsXYZ mVector;
+	CoordsXYZ mPastCoords;
+	//double positionX, positionY, positionZ,
+	double cameraDiference = 50;
 
-	float angle = 0, dir = 0;
-	float viewVectorMag = 0, magnitudX = 0, magnitudZ = 0;
+	float mAngle = 0, mDir = 0, mViewVectorMag = 0, mMagnitudX = 0, mMagnitudZ = 0;
 
-	bool ableToMove;
+	bool mAbleToMove;
+	bool mEndAnimation = false;
+	bool mCameraOn;
+	bool mDisableLookUpAt = false;
 
 	Camera()
 	{
+		mCameraPoints[0] = new CoordsXYZ(2, 23, -125);
+		mCameraPoints[1] = new CoordsXYZ(-25, 90, -35); //puntos para cuando se inicie el juego
+		//bool status
+		//cameraOn = status;
 	}
 
-	void cameraInitialize()
+	void cameraInitialize(bool pGameStarted)
 	{
 		//positionX = -0.03, positionY = 23, positionZ = -162, directionX = 0, directionY = 23, directionZ = -25;
-		positionX = -164, positionY = 23, positionZ = 20, directionX = 0, directionY = 23, directionZ = -25;
-		ux = 0, uy = 1, uz = 0;
-		gluLookAt(positionX, positionY, positionZ, directionX, directionY, directionZ, ux, uy, uz);
-		viewVectorMag = sqrt(pow(directionX - positionX, 2) + pow(directionZ - positionZ, 2));
-		ableToMove = true; //ITZEL: Cuando entre al modo juego -> desabilitar, alt: escalar camara
+		// se valida si el jugador tuvo colisión con la barda de inicio de juego ->
+		// se manda la posicion que se desea colocar la cámara ->
+		// se aleja la cámara de jugador ->
+		// ahora el jugador tiene la posición de la cámara sin procesar -> multiplicar los valores de la cámara por .5 o sumar diferencia? 
+		// la camara se alejará
+
+		//si el juego ya ha iniciado...
+		if (pGameStarted)
+		{
+			mDisableLookUpAt = true;
+			setPosition(*mCameraPoints[1]); //coordenadas de la posición
+			setDirection(5, -150, -250);
+		}
+		else
+		{
+			mDisableLookUpAt = false;
+			setPosition(*mCameraPoints[0]); //coordenadas de la posición
+			setDirection(mDirection.x, mDirection.y, mDirection.z); // dirección/ángulo de la cámara
+		}
+		//positionX = pX, positionY = pY, positionZ = pZ, directionX = dX, directionY = dY, directionZ = dZ;
+
+		mVector.x = 0, mVector.y = 1, mVector.z = 0;
+		gluLookAt(mCoords.x, mCoords.y, mCoords.z, mDirection.x, mDirection.y, mDirection.z,
+			mVector.x, mVector.y, mVector.z);
+		mViewVectorMag = sqrt(pow(mDirection.x - mCoords.x, 2) + pow(mDirection.z - mCoords.z, 2));
+		mAbleToMove = true; //Cuando entre al modo juego -> desabilitar, alt: escalar camara
+		//}
+		//else
+		//{
+		//	positionX = 
+		//}
 	}
 
-	void cameraUpdate()
+	void setPosition(CoordsXYZ pCoords)
 	{
-		gluLookAt(positionX, positionY, positionZ, directionX, directionY, directionZ, ux, uy, uz);
+		mCoords.x = pCoords.x;
+		mCoords.y = pCoords.y;
+		mCoords.z = pCoords.z;
 	}
 
-	void move(char movDir)
+	// Si el movimiento de la camara va a estar animado -> Investigar Interpolation
+	// SetPosition(0, 0, 0)
+	// SetPosition(10, 0, 0)
+
+	void setDirection(double pDirectionX, double pDirectionY, double pDirectionZ)
 	{
-		dir = 0;
+		mDirection.x = pDirectionX;
+		mDirection.y = pDirectionY;
+		mDirection.z = pDirectionZ;
+	}
 
-		magnitudX = directionX - positionX;
-		magnitudZ = directionZ - positionZ;
+	void cameraUpdate(bool gameStarted)
+	{
+		gluLookAt(mCoords.x, mCoords.y, mCoords.z, mDirection.x, mDirection.y, mDirection.z, mVector.x, mVector.y, mVector.z);
+	}
 
-		switch (movDir)
+	void cameraModeGame(CoordsXYZ pCoords)
+	{
+		gluLookAt(mCoords.x, mCoords.y, mCoords.z, pCoords.x, pCoords.y, pCoords.z, mVector.z, mVector.y, mVector.z);
+		//mViewVectorMag = sqrt(pow(mDirection.y - mCoords.x, 2) + pow(mDirection.z - mCoords.z, 2));
+		//mAbleToMove = true; //ITZEL: Cuando entre al modo juego -> desabilitar, alt: escalar camara
+	}
+
+	//void AnimationInitGame()
+	//{
+	//	if (!mEndAnimation)
+	//	{
+	//		GoAcross(mCoords.x, -200, mDirection.y, -15, mEndAnimation); 
+	//		gluLookAt(mCoords.x, mCoords.y, mCoords.z, mDirection.x, mDirection.y, mDirection.z, mVector.x, mVector.y, mVector.z);
+	//	}
+	//}
+
+	void move(char pMovDir)
+	{
+		mDir = 0;
+
+		mMagnitudX = mDirection.x - mCoords.x;
+		mMagnitudZ = mDirection.z - mCoords.z;
+
+		switch (pMovDir)
 		{
 		case 'f':
-			dir = TO_DEG(atan2(magnitudZ, magnitudX));
+			mDir = TO_DEG(atan2(mMagnitudZ, mMagnitudX));
 			break;
 		case 'b':
-			dir = TO_DEG(atan2(magnitudZ, magnitudX)) - 180;
+			mDir = TO_DEG(atan2(mMagnitudZ, mMagnitudX)) - 180;
 			break;
 		case 'l':
-			dir = TO_DEG(atan2(magnitudZ, magnitudX)) - 90;
+			mDir = TO_DEG(atan2(mMagnitudZ, mMagnitudX)) - 90;
 			break;
 		case 'r':
-			dir = TO_DEG(atan2(magnitudZ, magnitudX)) + 90;
+			mDir = TO_DEG(atan2(mMagnitudZ, mMagnitudX)) + 90;
 			break;
 		}
-		if (ableToMove)
+		if (mAbleToMove)
 		{
-			positionZ += POSITION_INC * sin(TO_RAD(dir));
-			directionZ += POSITION_INC * sin(TO_RAD(dir));
-			positionX += POSITION_INC * cos(TO_RAD(dir));
-			directionX += POSITION_INC * cos(TO_RAD(dir));
+			mCoords.z += POSITION_INC * sin(TO_RAD(mDir));
+			mCoords.x += POSITION_INC * cos(TO_RAD(mDir));
+			
+			mDirection.z += POSITION_INC * sin(TO_RAD(mDir));
+			mDirection.x += POSITION_INC * cos(TO_RAD(mDir));
 		}
 	}
 
 	void turnRight()
 	{
-		angle = angle + ANGLE_INC;
-		directionX = sin(TO_RAD(angle)) * viewVectorMag + positionX;
-		directionZ = -cos(TO_RAD(angle)) * viewVectorMag + positionZ;
+		if (!mDisableLookUpAt)
+		{
+			mAngle = mAngle + ANGLE_INC;
+			mDirection.x = sin(TO_RAD(mAngle)) * mViewVectorMag + mCoords.x;
+			mDirection.z = -cos(TO_RAD(mAngle)) * mViewVectorMag + mCoords.z;
+		}
 	}
 
 	void turnLeft()
 	{
-		angle = angle - ANGLE_INC;
-		directionX = sin(TO_RAD(angle)) * viewVectorMag + positionX;
-		directionZ = -cos(TO_RAD(angle)) * viewVectorMag + positionZ;
+		if (!mDisableLookUpAt)
+		{
+			mAngle = mAngle - ANGLE_INC;
+			mDirection.x = sin(TO_RAD(mAngle)) * mViewVectorMag + mCoords.x;
+			mDirection.z = -cos(TO_RAD(mAngle)) * mViewVectorMag + mCoords.z;
+		}
 	}
 
 	void turnUp()
 	{
-		if (directionY < 50 + positionY)
-			directionY += 1;
+		if (mDirection.y < 50 + mCoords.y && !mDisableLookUpAt)
+			mDirection.y += 1;
 	}
 
 	void turnDown()
 	{
-		if (directionY > -50 + positionY)
-			directionY -= 1;
+		if (mDirection.y > -50 + mCoords.y && !mDisableLookUpAt)
+			mDirection.y -= 1;
 	}
 };
 #endif
