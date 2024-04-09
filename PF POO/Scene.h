@@ -52,7 +52,7 @@ public:
 	//Camera thirdPerson;
 	SkyDome* skyDome = new SkyDome(hWnd, 32, 32, 500, L"Imagenes//sky.png", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	Terrain* terrain = new Terrain(hWnd, L"Imagenes//heigthmap.bmp", L"Imagenes//grassTexture.jpg", L"Imagenes//grassTexture.jpg", 530, 530);
-	Water* lake = new Water(hWnd,L"Imagenes//heightmapLake2.bmp",L"Imagenes//lake.bmp",512,512);
+	Water* lake = new Water(hWnd,L"Imagenes//heightmapLake.bmp",L"Imagenes//lake2.bmp",512,512);
 	GLfloat AmbMat[4] = { 255, 255, 220, 1 };
 	Fog* fog = new Fog();
 
@@ -258,7 +258,7 @@ public:
 		StinkyCarrot->Dance();
 		Ducky->Swim();
 
-		if (mCoords.y < 35 && !mGameStarted)
+		if (mCoords.y < 34.5 && !mGameStarted)
 		{ 
 			fog->density = 0.025;
 			fog->draw(); 

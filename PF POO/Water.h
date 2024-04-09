@@ -64,18 +64,18 @@ public:
 		float posYMin = 32;
 		moveWater += 0.15; //entre más alto el valor, más rápido se moverá
 		float waterAnimationY = posYMin + sin(moveWater); //posicion y del agua
-		//glPushAttrib(GL_CURRENT_BIT | GL_TEXTURE_BIT);
+		glPushAttrib(GL_CURRENT_BIT | GL_TEXTURE_BIT);
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);
-		static float water_factor_min = 20.0f; 
-		static float water_factor_max = 30.0f;
+		static float water_factor_min = 40.0f; 
+		static float water_factor_max = 60.0f;
 		static float water_size = 200;
 		water_factor_min += .003f;
 		water_factor_max += .003f;
-		if (water_factor_min > 60)
+		if (water_factor_min > 1200)
 		{
-			water_factor_min = 20.0f;
-			water_factor_max = 30.0f;
+			water_factor_min = 40.0f;
+			water_factor_max = 60.0f;
 		}
 		glBindTexture(GL_TEXTURE_2D, mTextureMap);
 		glBegin(GL_QUADS);
@@ -96,7 +96,7 @@ public:
 		glVertex3f(-water_size, waterAnimationY, -water_size);
 		glEnd();
 		glPopAttrib();
-		//glDisable(GL_DEPTH_TEST);
+		glDisable(GL_DEPTH_TEST);
 		//-------------
 
 	}
