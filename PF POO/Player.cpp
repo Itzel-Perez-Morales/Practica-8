@@ -59,16 +59,12 @@ Player::Player(double pColisionPointX, double pColisionPointY, double pColisionP
 	mEddieRun.setFPFLimit(pIndexRun);
 	mEddieHit.setFPFLimit(pIndexHit);
 	mEddieIdle.setFPFLimit(pIndexIdle);
-	mEddieRun.setTime(3);
+	mEddieRun.setTime(5);
 	mEddieHit.setTime(2);
 	mEddieIdle.setTime(3);
 	mPlayerCoords.x = pColisionPointX;
 	mPlayerCoords.y = pColisionPointY;
 	mPlayerCoords.z = pColisionPointZ;
-
-	mCoordsDifCam.x = 10; //trabajar con la diferencia;
-	mCoordsDifCam.y = 0; //realmente no importa
-	mCoordsDifCam.z = 70.8;
 }
 
 //void Animate(Animations animation, CoordsXYZ position, CoordsXYZ offset) //diference? offset -> frames 
@@ -119,7 +115,7 @@ void Player::Run()
 	}
 	else
 	{
-		mEddieRun.getFrames()[mEddieRun.getIndex()]->Draw(); //mandar textura
+		mEddieRun.getFrames()[mEddieRun.getIndex()]->Draw();
 		mEddieRun.setSpeed(mEddieRun.getSpeed() + 1);
 	}
 	glPopMatrix();
@@ -148,16 +144,56 @@ void Player::Hit()
 	glPopMatrix();
 }
 
-void Player::Move(bool* pKeys[])
+void Player::Move(char pMove)
 {
+	float mDir = 0;
+	float mMagnitudX = mPlayerDirection.x - mPlayerCoords.x;
+	float mMagnitudZ = mPlayerDirection.z - mPlayerCoords.z;
+	switch (pMove)
+	{
+	case 'f':
+		mPlayerCoords.z -= 1; //cambiar por speed
+		break;
 
+	case 'b':
+		mPlayerCoords.z += 1; //cambiar por speed
+		break;
+
+	case 'l':
+		mPlayerCoords.x -= 1; //cambiar por speed
+		break;
+
+	case 'r':
+		mPlayerCoords.x += 1; //cambiar por speed
+		break;
+
+	}
+
+	//cambiar direccion
+
+	//if (pKeys[0])
+	//{
+	//	mPlayerCoords.z += 1; //cambiar por speed
+	//	//mDir = TO_DEG(atan2(mMagnitudZ, mMagnitudX));
+	//}
+	//if (pKeys[1])
+	//{
+	//	mPlayerCoords.z -= 1; //cambiar por speed
+	//}
+	//if (pKeys[2])
+	//{
+	//	mPlayerCoords.x -= 1; //cambiar por speed
+	//}
+	//if (pKeys[3])
+	//{
+	//	mPlayerCoords.x += 1; //cambiar por speed
+	//}
+	
 	//recibir las llaves
 	//mover de acuerdo a lo que se reciba
 	//función move de cámara
 
 	//cuantas teclas se están presionando a la vez?
-
-
 }
 
 //GETTERS / SETTERS

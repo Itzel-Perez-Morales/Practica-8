@@ -46,7 +46,7 @@ public:
 	HWND hWnd = 0;
 	bool mGameStarted = false, mGameInitialize = false, mKeyMovePressed = false;
 	bool mKey[4]{ 0 ,0 ,0, 0 }; //[0] = w, [1] = s, [2] = a , [3] = d
-	bool mKeyW = false, mKeyS = false, mKeyA= false, mKeyD = false;
+	//bool mKeyW = false, mKeyS = false, mKeyA= false, mKeyD = false;
 	short int skyIndex, lightIndex;
 	float skyRotation;// , bunnyRotation, bunnyPosition = 25;
 	//Camera thirdPerson;
@@ -114,7 +114,7 @@ public:
 		//NOTA: El estado de la colision se maneja en base al jugador, es decir, si choca con algo = true /*lake = new Water(hWnd, L"Imagenes//heigthmap.bmp", L"Imagenes//lake.bmp", 1000, 1250);*
 		
 		//A N I M A C I O N E S
-		Eddie = new Player(-35.8, 37.6, -105.45, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 13, 20);
+		Eddie = new Player(-35.8, 37.6, -105.5, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 13, 20);
 		Bunnies = new Bunny(-20.1 , 10 , -108.9 , 0, 0, 0, 14, 0, 25, 10, 45, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
 		Carrot = new Veggies("Modelos//Carrots//Carrot.obj", "Modelos//Carrots//Carrot.bmp", 1, -20.1, 45, -108.9, 5, 3, 5, 0, 0, 45, 45, 50, 0, 1, 2.5, 1, 1, 0, 1, 0, 0, 0); //ARRAY -> INICIA EN TRUE
 		StinkyCarrot = new Veggies("Modelos//Carrots//StinkyCarrot.obj", "Modelos//Carrots//StinkyCarrot.bmp", 1, -15.1, 45, -108.9, 3, 3, 3, 0, 0, 45, 45, 50, 0, 1, 2.5, 1, 1, 0, 1, 0, 0, 0);//ARRAY ->INICIA EN FALSE
@@ -130,7 +130,7 @@ public:
 		Boxes = new ModelWColision("Modelos//Boxes//Boxes.obj", "Modelos//Boxes//Boxes.bmp", 1, 0,0,0,0,0,0);
 		Rail = new Railing("Modelos//Camps//Railing.obj", "Modelos//Camps//Railing.bmp", 1,0,0,0,0,0,0,0);
 		VeggiesCamps = new VeggiesCamp("Modelos//Camps//Veggies.obj", "Modelos//Camps//Veggies.bmp", 1);
-		Sign = new ModelWColision("Modelos//Sign//Sign.obj", "Modelos//Sign//Sign.bmp", 1, -62.5,49,-125.7,5,5,5); //poner de acuerdo a la posicion del objeto
+		Sign = new ModelWColision("Modelos//Sign//Sign.obj", "Modelos//Sign//Sign.bmp", 1, -62.5,49,-125.7,10,10,10); //poner de acuerdo a la posicion del objeto
 
 		////OBJ ESTATICOS 
 		Bed = new Model("Modelos//Bed//Bed.obj", "Modelos//Bed//Bed.bmp", 1);
@@ -241,6 +241,8 @@ public:
 		//}
 		if (mGameStarted && mGameInitialize)
 		{ 
+			MoveOnGame(Eddie->getPositions());
+
 			if(!mKeyMovePressed)
 			{ 
 				Eddie->Idle();

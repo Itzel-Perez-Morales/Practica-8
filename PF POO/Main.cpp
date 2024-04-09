@@ -115,26 +115,51 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 				if (keys[4]) //w
 				{
-					scene->mKeyW = true;
-					scene->move('f');
+					scene->mKey[0] = true;
+					if (!scene->mGameStarted)
+					{ scene->move('f');}
+					else
+					{
+						scene->Eddie->Move('f');
+						//scene->Eddie->Run();
+					}
 				}
 
 				if (keys[5]) //s
 				{
-					scene->mKeyS = true;
-					scene->move('b');
+					scene->mKey[1] = true;
+					if (!scene->mGameStarted)
+					{
+						scene->move('b');
+					}
+					else
+					{
+						scene->Eddie->Move('b');
+					}
 				}
 
 				if (keys[6]) //a
 				{
-					scene->mKeyA = true;
-					scene->move('l');
+					scene->mKey[2] = true;
+					if (!scene->mGameStarted)
+					{
+						scene->move('l');
+					}
+					else
+					{
+						scene->Eddie->Move('l');
+					}
 				}
 
 				if (keys[7])//d
 				{
-					scene->mKeyD = true;
-					scene->move('r');
+					scene->mKey[3] = true;
+					if (!scene->mGameStarted)
+					{ scene->move('r'); }
+					else
+					{
+						scene->Eddie->Move('r');
+					}
 				}
 
 				if (keys[8])
@@ -290,6 +315,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 	{
 		KillTimer(hWnd, Timer1);
 		delete scene;
+		delete gamPad;
 		wglMakeCurrent(hContextoVentana, NULL);
 		wglDeleteContext(hContextoGL);
 		PostQuitMessage(0);

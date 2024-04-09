@@ -24,7 +24,8 @@ public:
 	CoordsXYZ mVector;
 	CoordsXYZ mPastCoords;
 	//double positionX, positionY, positionZ,
-	double cameraDiference = 50;
+	//float cameraDiference = 0.5;
+	float cameraDiference = 41.5;
 
 	float mAngle = 0, mDir = 0, mViewVectorMag = 0, mMagnitudX = 0, mMagnitudZ = 0;
 
@@ -36,7 +37,7 @@ public:
 	Camera()
 	{
 		mCameraPoints[0] = new CoordsXYZ(2, 23, -125);
-		mCameraPoints[1] = new CoordsXYZ(-25, 90, -35); //puntos para cuando se inicie el juego
+		mCameraPoints[1] = new CoordsXYZ(-35.8, 90, -64); //puntos para cuando se inicie el juego
 		//bool status
 		//cameraOn = status;
 	}
@@ -50,12 +51,25 @@ public:
 		// ahora el jugador tiene la posición de la cámara sin procesar -> multiplicar los valores de la cámara por .5 o sumar diferencia? 
 		// la camara se alejará
 
+
+		//main.cpp
+		//si el jugador teclea una o más teclas a la vez  //
+		//se manda una bandera de que teclas presionó //
+		//class Player
+		//se valida y se entra a la función de Move//
+		//en la función de move se ejecuta el codigo de move que está en la función de cámara//
+		//se mandan las coordenadas nuevas a la función de cámara //
+		//class Camera
+		//se comparan las coordenadas nuevas del jugador con las de la camara/
+		//se incrementa/decrementa de acuerdo a lo obtenido //OPC: multiplicar el factor para generar la sensación de poco movimiento 
+
+
 		//si el juego ya ha iniciado...
 		if (pGameStarted)
 		{
 			mDisableLookUpAt = true;
 			setPosition(*mCameraPoints[1]); //coordenadas de la posición
-			setDirection(5, -150, -250);
+			setDirection(-33, -150, -276);
 		}
 		else
 		{
@@ -116,6 +130,33 @@ public:
 	//	}
 	//}
 
+	void MoveOnGame(CoordsXYZ pPlayerCoords)
+	{
+		if (mCoords.x >= pPlayerCoords.x)
+		{
+			mCoords.x -= 0.5;
+		}
+		else
+		{
+			if (mCoords.x <= pPlayerCoords.x)
+			{
+				mCoords.x += 0.5;
+			}
+		}
+
+		if (mCoords.z - cameraDiference >= pPlayerCoords.z)
+		{
+			mCoords.z -= 0.5;
+		}
+		else
+		{
+			if (mCoords.z - cameraDiference <= pPlayerCoords.z)
+			{
+				mCoords.z += 0.5;
+			}
+		}
+	}
+
 	void move(char pMovDir)
 	{
 		mDir = 0;
@@ -150,34 +191,34 @@ public:
 
 	void turnRight()
 	{
-		if (!mDisableLookUpAt)
-		{
-			mAngle = mAngle + ANGLE_INC;
-			mDirection.x = sin(TO_RAD(mAngle)) * mViewVectorMag + mCoords.x;
-			mDirection.z = -cos(TO_RAD(mAngle)) * mViewVectorMag + mCoords.z;
-		}
+		mAngle = mAngle + ANGLE_INC;
+		mDirection.x = sin(TO_RAD(mAngle)) * mViewVectorMag + mCoords.x;
+		mDirection.z = -cos(TO_RAD(mAngle)) * mViewVectorMag + mCoords.z;
 	}
 
 	void turnLeft()
 	{
-		if (!mDisableLookUpAt)
-		{
-			mAngle = mAngle - ANGLE_INC;
-			mDirection.x = sin(TO_RAD(mAngle)) * mViewVectorMag + mCoords.x;
-			mDirection.z = -cos(TO_RAD(mAngle)) * mViewVectorMag + mCoords.z;
-		}
+		mAngle = mAngle - ANGLE_INC;
+		mDirection.x = sin(TO_RAD(mAngle)) * mViewVectorMag + mCoords.x;
+		mDirection.z = -cos(TO_RAD(mAngle)) * mViewVectorMag + mCoords.z;
 	}
 
 	void turnUp()
 	{
-		if (mDirection.y < 50 + mCoords.y && !mDisableLookUpAt)
+		if (!mDisableLookUpAt)
+		{
+			if (mDirection.y < 50 + mCoords.y && !mDisableLookUpAt)
 			mDirection.y += 1;
+		}
 	}
 
 	void turnDown()
 	{
+		if (!mDisableLookUpAt)
+		{
 		if (mDirection.y > -50 + mCoords.y && !mDisableLookUpAt)
 			mDirection.y -= 1;
+		}
 	}
 };
 #endif

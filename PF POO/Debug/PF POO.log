@@ -32,25 +32,25 @@ C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Billboard.h(65,24): warning C
 C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Billboard.h(68,21): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
 C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Billboard.h(69,21): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
 C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Fog.h(10,44): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
-C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Camera.h(71,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Camera.h(123,29): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Camera.h(124,29): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Camera.h(129,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Camera.h(132,49): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Camera.h(135,49): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Camera.h(138,49): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Camera.h(155,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Camera.h(165,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Camera.h(85,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Camera.h(164,29): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Camera.h(165,29): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Camera.h(170,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Camera.h(173,49): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Camera.h(176,49): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Camera.h(179,49): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Camera.h(194,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Camera.h(201,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Scene.h(121,127): warning C4244: 'argument': conversion from 'double' to 'short', possible loss of data
 C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Scene.h(102,10): warning C4101: 'posCam1': unreferenced local variable
 C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Scene.h(186,1): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Scene.h(190,55): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Scene.h(190,44): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Scene.h(254,1): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Scene.h(255,1): warning C4305: 'argument': truncation from 'double' to 'float'
 C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Scene.h(256,1): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Scene.h(263,1): warning C4305: '=': truncation from 'double' to 'GLfloat'
-C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Main.cpp(192,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Scene.h(257,1): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Scene.h(258,1): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Scene.h(265,1): warning C4305: '=': truncation from 'double' to 'GLfloat'
+C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Main.cpp(217,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
 C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Scene.h(29,23): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
 C:\Users\itzep\OneDrive\Documents\PIA_POO 3\PF POO\Scene.h(215,1): message : see reference to function template instantiation 'void RenderObjects<ModelWColision*>(ModelType &,double,double,double)' being compiled
           with

@@ -1,4 +1,8 @@
 #pragma once
+#define TO_RAD(DEG) (DEG * 3.1416 / 180)
+#define TO_DEG(RAD) (RAD / 3.1416 * 180.0)
+#define ANGLE_INC 3.5
+#define POSITION_INC 1
 #include <vector>
 #include "Frames.h"
 #include "Colision.h"
@@ -10,7 +14,6 @@ class Player : public Colision, public Animations
 {
 	CoordsXYZ mPlayerCoords;
 	CoordsXYZ mPlayerDirection; 
-	CoordsXYZ mCoordsDifCam;
 	float mSpeed; //velocidad del jugador
 	Animations mEddieRun;
 	Animations mEddieHit;
@@ -26,7 +29,7 @@ public:
 	void Idle();
 	void Hit();
 
-	void Move(bool* pKeys[]);
+	void Move(char pMove);
 
 	//GETTERS / SETTERS
 
