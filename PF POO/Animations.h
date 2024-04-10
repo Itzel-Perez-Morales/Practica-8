@@ -5,7 +5,7 @@ using namespace EDXFramework;
 
 class Animations
 {
-	short index, speed, limit, time; //index recorrera el array, limit establece hasta que numero se recorre
+	short index, animationSpeed, limit; //index recorrera el array, limit establece hasta que numero se recorre
 	float position, positionStart, positionEnd, rotation, size, sizeLimit, sizeMini;
 	bool sizeSmall, up, down, front, back;
 	vector<Frames*> animFrames; 
@@ -35,13 +35,13 @@ public:
 	float getSizeMini();
 	short getFPFLimit();
 	short getIndex();
-	short getSpeed();
-	short getTime();
+	float getAnimationSpeed();
+	float getTime();
 	vector<Frames*> Animations::getFrames();
 
-	void setTime(short _time);
+	void setTime(float _time);
 	void setIndex(short i);
-	void setSpeed(short aSpeed);
+	void setAnimationSpeed(float aSpeed);
 	void setPosition(float pos);
 	void setPositionStart(float pS);
 	void setPositionEnd(float pE);

@@ -59,9 +59,6 @@ Player::Player(double pColisionPointX, double pColisionPointY, double pColisionP
 	mEddieRun.setFPFLimit(pIndexRun);
 	mEddieHit.setFPFLimit(pIndexHit);
 	mEddieIdle.setFPFLimit(pIndexIdle);
-	mEddieRun.setTime(5);
-	mEddieHit.setTime(2);
-	mEddieIdle.setTime(3);
 	mPlayerCoords.x = pColisionPointX;
 	mPlayerCoords.y = pColisionPointY;
 	mPlayerCoords.z = pColisionPointZ;
@@ -89,17 +86,9 @@ void Player::Idle()
 {
 	glPushMatrix();
 	glTranslatef(mPlayerCoords.x, mPlayerCoords.y, mPlayerCoords.z); //pasar coords de camara sin modificar -> sin multiplicar por .4
+	glRotatef(getRotation(), 0, 1, 0);
 	//validar colision
-	if (mEddieIdle.getTime() == mEddieIdle.getSpeed())
-	{
-		FPF(mEddieIdle.getFrames(), mEddieIdle.getFPFLimit());
-		mEddieIdle.setSpeed(0);
-	}
-	else
-	{
-		mEddieIdle.getFrames()[mEddieIdle.getIndex()]->Draw();
-		mEddieIdle.setSpeed(mEddieIdle.getSpeed() + 1);
-	}
+	FPF(mEddieIdle.getFrames(), mEddieIdle.getFPFLimit());
 	glPopMatrix();
 }
 
@@ -108,16 +97,8 @@ void Player::Run()
 	glPushMatrix();
 	glTranslatef(mPlayerCoords.x, mPlayerCoords.y, mPlayerCoords.z);
 	//validar colision
-	if (mEddieRun.getTime() == mEddieRun.getSpeed())
-	{
-		FPF(mEddieRun.getFrames(), mEddieRun.getFPFLimit());
-		mEddieRun.setSpeed(0);
-	}
-	else
-	{
-		mEddieRun.getFrames()[mEddieRun.getIndex()]->Draw();
-		mEddieRun.setSpeed(mEddieRun.getSpeed() + 1);
-	}
+	glRotatef(getRotation(), 0, 1, 0);
+	FPF(mEddieRun.getFrames(), mEddieRun.getFPFLimit());
 	glPopMatrix();
 	//if (!Hitbox(_objCoordsX, _objCoordsY, _objCoordsZ))
 	//{
@@ -129,42 +110,36 @@ void Player::Run()
 void Player::Hit()
 {
 	glPushMatrix();
+	glRotatef(getRotation(), 0, 1, 0);
 	glTranslatef(mPlayerCoords.x, mPlayerCoords.y, mPlayerCoords.z);
 	//validar colision
-	if (mEddieHit.getTime() == mEddieHit.getSpeed())
-	{
-		FPF(mEddieHit.getFrames(), mEddieHit.getFPFLimit());
-		mEddieHit.setSpeed(0);
-	}
-	else
-	{
-		mEddieHit.getFrames()[mEddieHit.getIndex()]->Draw();
-		mEddieHit.setSpeed(mEddieHit.getSpeed() + 1);
-	}
+	FPF(mEddieHit.getFrames(), mEddieHit.getFPFLimit());
 	glPopMatrix();
 }
 
 void Player::Move(char pMove)
 {
-	float mDir = 0;
-	float mMagnitudX = mPlayerDirection.x - mPlayerCoords.x;
-	float mMagnitudZ = mPlayerDirection.z - mPlayerCoords.z;
 	switch (pMove)
 	{
 	case 'f':
 		mPlayerCoords.z -= 1; //cambiar por speed
+		//ir sumando o restando en la variable rotate
+		setRotation(180);
 		break;
 
 	case 'b':
 		mPlayerCoords.z += 1; //cambiar por speed
+		setRotation(0);
 		break;
 
 	case 'l':
 		mPlayerCoords.x -= 1; //cambiar por speed
+		setRotation(270);
 		break;
 
 	case 'r':
 		mPlayerCoords.x += 1; //cambiar por speed
+		setRotation(90);
 		break;
 
 	}

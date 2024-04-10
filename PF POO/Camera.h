@@ -2,6 +2,8 @@
 #define __Camera
 #define TO_RAD(DEG) (DEG * 3.1416 / 180)
 #define TO_DEG(RAD) (RAD / 3.1416 * 180.0)
+#define CAM_DIFERENCE 41.5
+#define INTERPOLATION 0.1
 #define ANGLE_INC 3.5
 #define POSITION_INC 1
 
@@ -25,7 +27,6 @@ public:
 	CoordsXYZ mPastCoords;
 	//double positionX, positionY, positionZ,
 	//float cameraDiference = 0.5;
-	float cameraDiference = 41.5;
 
 	float mAngle = 0, mDir = 0, mViewVectorMag = 0, mMagnitudX = 0, mMagnitudZ = 0;
 
@@ -37,7 +38,7 @@ public:
 	Camera()
 	{
 		mCameraPoints[0] = new CoordsXYZ(2, 23, -125);
-		mCameraPoints[1] = new CoordsXYZ(-35.8, 90, -64); //puntos para cuando se inicie el juego
+		mCameraPoints[1] = new CoordsXYZ(-35.8, 80, -105.5); //puntos para cuando se inicie el juego
 		//bool status
 		//cameraOn = status;
 	}
@@ -121,41 +122,90 @@ public:
 		//mAbleToMove = true; //ITZEL: Cuando entre al modo juego -> desabilitar, alt: escalar camara
 	}
 
-	//void AnimationInitGame()
-	//{
-	//	if (!mEndAnimation)
-	//	{
-	//		GoAcross(mCoords.x, -200, mDirection.y, -15, mEndAnimation); 
-	//		gluLookAt(mCoords.x, mCoords.y, mCoords.z, mDirection.x, mDirection.y, mDirection.z, mVector.x, mVector.y, mVector.z);
-	//	}
-	//}
-
-	void MoveOnGame(CoordsXYZ pPlayerCoords)
+	void MoveOnGame(CoordsXYZ pPlayerCoords, bool pKeys[])
 	{
-		if (mCoords.x >= pPlayerCoords.x)
-		{
-			mCoords.x -= 0.5;
-		}
-		else
-		{
-			if (mCoords.x <= pPlayerCoords.x)
-			{
-				mCoords.x += 0.5;
-			}
-		}
+		float finalPositionX = pPlayerCoords.x;
+		float finalPositionZ = pPlayerCoords.z + CAM_DIFERENCE;
+		//float finalPositionZ = mCoords.z + CAM_DIFERENCE;
+		
+		float distance = sqrt((pow((mCoords.x - finalPositionX), 2) + (pow((mCoords.z - finalPositionZ), 2)))); //distancia actual
 
-		if (mCoords.z - cameraDiference >= pPlayerCoords.z)
+		finalPositionX = mCoords.x + INTERPOLATION * (finalPositionX - mCoords.x);
+		finalPositionZ = mCoords.z + INTERPOLATION * (finalPositionZ - mCoords.z);
+
+		mCoords.x = finalPositionX;
+		mCoords.z = finalPositionZ;
+		if (mCoords.z > 24)  // hacia donde va? -> hacer que recupere su posición inicial
 		{
-			mCoords.z -= 0.5;
-		}
-		else
-		{
-			if (mCoords.z - cameraDiference <= pPlayerCoords.z)
+			if (pKeys[1] && mDirection.y > -680)
 			{
-				mCoords.z += 0.5;
+				mDirection.y -= 1; //poner limite de -680
+			}
+			else
+			{
+
+				if (pKeys[0] && mDirection.y < -150)
+				{
+					mDirection.y += 1;
+				}
 			}
 		}
 	}
+
+
+	//void MoveOnGame(CoordsXYZ pPlayerCoords)
+	//{
+	//	float distance = sqrt((pow((mCoords.x - pPlayerCoords.x), 2) + (pow((mCoords.z - pPlayerCoords.z), 2)))); //distancia actual
+	//	if (mCoords.x >= pPlayerCoords.x + 1)
+	//	{
+	//		mCoords.x -= 0.85;
+	//	}
+	//	if (mCoords.x <= pPlayerCoords.x - 1)
+	//	{
+	//		mCoords.x += 0.85;
+	//	}
+	//	if (distance > CAM_DIFERENCE + 2 || distance < CAM_DIFERENCE - 2)
+	//	{
+	//		if (mCoords.z - CAM_DIFERENCE > pPlayerCoords.z + 2)
+	//		{
+	//			mCoords.z -= 0.8;
+	//			mDirection.y += 1;
+	//		}
+	//		else
+	//		{
+	//			if (mCoords.z - CAM_DIFERENCE < pPlayerCoords.z + 2)
+	//			{
+	//				mCoords.z += 0.8;
+	//				mDirection.y -= 1;
+	//			}
+	//		}
+	//	}
+	//}
+	/*	if (mCoords.x >= pPlayerCoords.x + 1)
+		{
+			mCoords.x -= 0.85;
+		}
+		if (mCoords.x <= pPlayerCoords.x - 1)
+		{
+			mCoords.x += 0.85;
+		}
+
+		if (distance > CAM_DIFERENCE + 2 || distance < CAM_DIFERENCE - 2)
+		{
+			if (mCoords.z - CAM_DIFERENCE > pPlayerCoords.z + 2)
+			{
+				mCoords.z -= 0.8;
+				mDirection.y += 1;
+			}
+			else
+			{
+				if (mCoords.z - CAM_DIFERENCE < pPlayerCoords.z + 2)
+				{
+					mCoords.z += 0.8;
+					mDirection.y -= 1;
+				}
+			}
+		}*/
 
 	void move(char pMovDir)
 	{
@@ -183,7 +233,7 @@ public:
 		{
 			mCoords.z += POSITION_INC * sin(TO_RAD(mDir));
 			mCoords.x += POSITION_INC * cos(TO_RAD(mDir));
-			
+
 			mDirection.z += POSITION_INC * sin(TO_RAD(mDir));
 			mDirection.x += POSITION_INC * cos(TO_RAD(mDir));
 		}
@@ -208,7 +258,7 @@ public:
 		if (!mDisableLookUpAt)
 		{
 			if (mDirection.y < 50 + mCoords.y && !mDisableLookUpAt)
-			mDirection.y += 1;
+				mDirection.y += 1;
 		}
 	}
 
@@ -216,8 +266,8 @@ public:
 	{
 		if (!mDisableLookUpAt)
 		{
-		if (mDirection.y > -50 + mCoords.y && !mDisableLookUpAt)
-			mDirection.y -= 1;
+			if (mDirection.y > -50 + mCoords.y && !mDisableLookUpAt)
+				mDirection.y -= 1;
 		}
 	}
 };

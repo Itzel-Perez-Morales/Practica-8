@@ -166,6 +166,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				{
 					short option = scene->ObjectsColisions();
 					scene->DoColision(option);
+					//validar
 				}
 
 				scene->mKeyMovePressed = true;

@@ -5,7 +5,7 @@ Animations::Animations() {};
 Animations::Animations(short index, short currentSpeed, float positionTraslate, float positionStart, float positionEnd, float rotation, float actualSize, float sizeLimit, float sizeMini, bool statusSmall, bool statusUp, bool statusDown, bool statusBack, bool statusFront)
 {
 	Animations::index = index;
-	speed = currentSpeed;
+	animationSpeed = currentSpeed;
 	position = positionTraslate;
 	Animations::positionStart = positionStart;
 	Animations::positionEnd = positionEnd;
@@ -139,9 +139,9 @@ short Animations::getIndex()
 	return index;
 }
 
-short Animations::getSpeed()
+float Animations::getAnimationSpeed()
 {
-	return speed;
+	return animationSpeed;
 }
 
 float Animations::getPosition()
@@ -184,14 +184,11 @@ bool Animations::getDown()
 short Animations::getFPFLimit()
 { return limit; }
 
-short Animations::getTime()
-{ return time; }
-
 void Animations::setIndex(short i)
 { index = i; }
 
-void Animations::setSpeed(short aSpeed)
-{ speed = aSpeed; }
+void Animations::setAnimationSpeed(float aSpeed)
+{ animationSpeed = aSpeed; }
 
 void Animations::setPosition(float pos)
 { position = pos; }
@@ -225,11 +222,6 @@ void Animations::setDown(bool stDown)
 
 void Animations::setFPFLimit(short fpf)
 { limit = fpf; }
-
-
-void Animations::setTime(short _time)
-{ time = _time; }
-
 
 void Animations::DeleteAnimation()
 {

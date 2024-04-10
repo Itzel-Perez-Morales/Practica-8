@@ -241,7 +241,7 @@ public:
 		//}
 		if (mGameStarted && mGameInitialize)
 		{ 
-			MoveOnGame(Eddie->getPositions());
+			MoveOnGame(Eddie->getPositions(), mKey);
 
 			if(!mKeyMovePressed)
 			{ 
