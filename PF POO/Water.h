@@ -57,6 +57,13 @@ public:
 		glDeleteTextures(1, &mTextureMap);
 	}
 
+	void Move()
+	{
+		glPushMatrix();
+		glScalef(4, 1, 4);
+		Draw();
+		glPopMatrix();
+	}
 
 	void Draw()
 	{

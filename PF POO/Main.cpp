@@ -1,3 +1,4 @@
+//P R A C T I C A   8 | LAB. POO
 #include <Windows.h>
 #include "glew.h"
 #include <gl\GLU.h>
@@ -14,7 +15,6 @@
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 void DefPixelFormat(HDC hDC);
-void AuxCoords(Scene* scene);
 
 HWND hInfo = 0;
 HWND hText = 0;
@@ -23,11 +23,8 @@ HDC hContextoVentana;
 Scene* scene;
 GamePadRR* gamPad;
 bool renderiza = false;
-bool keys[9] = { 0,0,0,0,0,0,0,0,0 };
+bool keys[8] = { 0,0,0,0,0,0,0,0}; //para movimiento con dos teclas presionadas
 unsigned int dayTimer = 0;
-
-// TODO: Agregar arreglo de bools para guardar estado de los inputs
-//		Si los movimientos se ven muy rapidos/fluidos: Ajustar velocidades / FPS
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
@@ -90,98 +87,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		}
 		else
 		{
-			if (keys[0] || keys[1] || keys[2] || keys[3] || keys[4] || keys[5] || keys[6] || keys[7] || keys[8])
-			{
-				scene->SaveCoords();
-				if (keys[0])
-				{
-					scene->turnDown(); //flecha hacia abajo
-				}
-
-				if (keys[1])
-				{
-					scene->turnUp(); //flecha hacia arriba
-				}
-
-				if (keys[2])
-				{
-					scene->turnLeft(); //flecha izquierda
-				}
-
-				if (keys[3])
-				{
-					scene->turnRight(); //flecha derecha
-				}
-
-				if (keys[4]) //w
-				{
-					scene->mKey[0] = true;
-					if (!scene->mGameStarted)
-					{ scene->move('f');}
-					else
-					{
-						scene->Eddie->Move('f');
-						//scene->Eddie->Run();
-					}
-				}
-
-				if (keys[5]) //s
-				{
-					scene->mKey[1] = true;
-					if (!scene->mGameStarted)
-					{
-						scene->move('b');
-					}
-					else
-					{
-						scene->Eddie->Move('b');
-					}
-				}
-
-				if (keys[6]) //a
-				{
-					scene->mKey[2] = true;
-					if (!scene->mGameStarted)
-					{
-						scene->move('l');
-					}
-					else
-					{
-						scene->Eddie->Move('l');
-					}
-				}
-
-				if (keys[7])//d
-				{
-					scene->mKey[3] = true;
-					if (!scene->mGameStarted)
-					{ scene->move('r'); }
-					else
-					{
-						scene->Eddie->Move('r');
-					}
-				}
-
-				if (keys[8])
-				{
-					short option = scene->ObjectsColisions();
-					scene->DoColision(option);
-					//validar
-				}
-
-				scene->mKeyMovePressed = true;
-				renderiza = true;
-			}
-			else
-			{
-				scene->mKeyMovePressed = false;
-			}
-
 			if (renderiza)
 			{
 				scene->Render(hContextoVentana);
-				// Llamar los metodos correspondientes a las banderas activas 
-				// FlechaArriba -> true = scene....
 				renderiza = false;
 				if (gamPad->IsConnected())
 				{
@@ -191,7 +99,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			}
 		}
 	}
-	return msg.wParam;
+
 }
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -257,10 +165,6 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 			{
 				keys[7] = true;
 			}
-			if (wParam == 0x45)//e
-			{
-				keys[8] = true;
-			}
 		}
 		return 0;
 		break;
@@ -286,29 +190,78 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 		if (wParam == 0x57)//w
 		{
 			keys[4] = false;
+			scene->mKey[0] = false;
 		}
 		if (wParam == 0x53)//s
 		{
 			keys[5] = false;
+			scene->mKey[1] = false;
 		}
 		if (wParam == 0x41)//a
 		{
 			keys[6] = false;
+			scene->mKey[2] = false;
 		}
 		if (wParam == 0x44)//d
 		{
 			keys[7] = false;
-		}
-		if (wParam == 0x45)//e
-		{
-			keys[8] = false;
+			scene->mKey[3] = false;
 		}
 		return 0;
 		break;
 
 	case WM_TIMER:
 	{
+		if (keys[0] || keys[1] || keys[2] || keys[3] || keys[4] || keys[5] || keys[6] || keys[7])
+		{
+			scene->SaveCoords();
+			if (keys[0])
+			{
+				scene->turnDown(); //flecha hacia abajo
+			}
+
+			if (keys[1])
+			{
+				scene->turnUp(); //flecha hacia arriba
+			}
+
+			if (keys[2])
+			{
+				scene->turnLeft(); //flecha izquierda
+			}
+
+			if (keys[3])
+			{
+				scene->turnRight(); //flecha derecha
+			}
+
+			if (keys[4]) //w
+			{
+				scene->mKey[0] = true;
+				scene->move('f');
+
+			}
+
+			if (keys[5]) //s
+			{
+				scene->mKey[1] = true;
+				scene->move('b');
+			}
+
+			if (keys[6]) //a
+			{
+				scene->mKey[2] = true;
+				scene->move('l');
+			}
+
+			if (keys[7])//d
+			{
+				scene->mKey[3] = true;
+				scene->move('r');
+			}
+		}
 		renderiza = true;
+
 	}
 	break;
 

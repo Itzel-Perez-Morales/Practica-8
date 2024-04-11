@@ -93,3 +93,9 @@ void Colision::setCoordsColRadio(double x, double y, double z)
 	coordsColRadio.y = y;
 	coordsColRadio.z = z;
 }
+
+CoordsXYZ Colision::getColisionCoords()
+{ return coordsColision; }
+
+CoordsXYZ Colision::getRadioCoords()
+{ return coordsColRadio; }

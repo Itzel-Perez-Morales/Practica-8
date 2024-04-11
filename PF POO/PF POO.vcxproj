@@ -151,40 +151,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animations.cpp" />
-    <ClCompile Include="Barn.cpp" />
     <ClCompile Include="BMPLoader.cpp" />
-    <ClCompile Include="Bunny.cpp" />
-    <ClCompile Include="Duck.cpp" />
     <ClCompile Include="Frames.cpp" />
     <ClCompile Include="glm.cpp" />
-    <ClCompile Include="Items.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Colision.cpp" />
-    <ClCompile Include="ModelWColision.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Railing.cpp" />
-    <ClCompile Include="Veggies.cpp" />
-    <ClCompile Include="VeggiesCamp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h" />
-    <ClInclude Include="Barn.h" />
     <ClInclude Include="Billboard.h" />
     <ClInclude Include="BMPLoader.h" />
-    <ClInclude Include="Bunny.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CoordsXYZ.h" />
-    <ClInclude Include="Duck.h" />
     <ClInclude Include="Frames.h" />
-    <ClInclude Include="ModelWColision.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Railing.h" />
-    <ClInclude Include="VeggiesCamp.h" />
-    <ClInclude Include="Veggies.h" />
     <ClInclude Include="Colision.h" />
     <ClInclude Include="EDXFramework.h" />
-    <ClInclude Include="Items.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="GamePadRR.h" />
     <ClInclude Include="glew.h" />

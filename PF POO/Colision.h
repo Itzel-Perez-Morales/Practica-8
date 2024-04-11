@@ -17,6 +17,8 @@ public:
 	bool HitboxPtP(CoordsXYZ objCoords);
 
 	// Setters / Getters
+	CoordsXYZ getColisionCoords();
+	CoordsXYZ getRadioCoords();
 	double getCoordsColisionX();
 	double getCoordsColisionY();
 	double getCoordsColisionZ();
